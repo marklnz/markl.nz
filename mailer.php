@@ -26,17 +26,10 @@
         $email_content = "Name: $name\n";
         $email_content .= "Email: $email\n\n";
         $email_content .= "Message:\n$message\n";
-		$user = 'MARKLAWR\admin';
-		$pass = 'mrDcp!34';
-		$host = 'ssrs.reachmail.net';
-		$port = 465; 
 		
-        // Build the email headers.
-        $email_headers = "From: $name <$email>";
-
         // Send the email.
         // if (mail($recipient, $subject, $email_content, $email_headers)) {
-		if (smtp_mail($recipient, $subject, $email_content, $user, $pass, $host, $port)) {
+		if (smtp_mail($recipient, $subject, $email_content)) {
             // Set a 200 (okay) response code.
             http_response_code(200);
             echo "Thank You! Your message has been sent.";
@@ -52,31 +45,43 @@
         echo "There was a problem with your submission, please try again.";
     }
 
-	function smtp_mail($to, $from, $message, $user, $pass, $host, $port)
+	function smtp_mail($to, $from, $message)
 	{
-		if ($h = fsockopen($host, $port))
-		{
-			$data = array(
-				0,
-				"EHLO $host",
-				'AUTH LOGIN',
-				base64_encode($user),
-				base64_encode($pass),
-				"MAIL FROM: <$from>",
-				"RCPT TO: <$to>",
-				'DATA',
-				$message
-			);
+		$url = 'https://api.sendgrid.com/';
+		$user = 'azure_bb61ea201ce638f4ea2aff64613c6fea@azure.com';
+		$pass = 'Mysendgridpwd1'; 
 
-			foreach($data as $c)
-			{
-				$c && fwrite($h, "$c\r\n");
-				while(substr(fgets($h, 256), 3, 1) != ' '){}
-			}
+		$params = array(
+		  'api_user' => $user,
+		  'api_key' => $pass,
+		  'to' => $to,
+		  'subject' => 'New message received on http://markl.nz',
+		  'html' => $message,
+		  'text' => $message,
+		  'from' => $from,
+		);
 
-			fwrite($h, "QUIT\r\n");
-			return fclose($h);
-		}
+		$request = $url.'api/mail.send.json';
+
+		// Generate curl request
+		$session = curl_init($request);
+
+		// Tell curl to use HTTP POST
+		curl_setopt ($session, CURLOPT_POST, true);
+
+		// Tell curl that this is the body of the POST
+		curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+
+		// Tell curl not to return headers, but do return the response
+		curl_setopt($session, CURLOPT_HEADER, false);
+		curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+		// obtain response
+		$response = curl_exec($session);
+		curl_close($session);
+
+		// print everything out
+		return $response;
 	}
 	
 ?>
