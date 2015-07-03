@@ -132,7 +132,7 @@ $(function() {
 			// $(formMessages).addClass('success');
 
 			// Set the message text.
-			$(formMessages).innerHtml('<p>' +response + '</p>');
+			$(formMessages).html('<p>' +response + '</p>');
 
 			// // Clear the form.
 			// $('#name').val('');
@@ -146,9 +146,9 @@ $(function() {
 
 			// Set the message text.
 			if (data.responseText !== '') {
-				$(formMessages).innerHtml('<p>' + data.responseText + '</p>');
+				$(formMessages).html('<p>' + data.responseText + '</p>');
 			} else {
-				$(formMessages).innerHtml('<p>Oops! An error occured and your message could not be sent.</p>');
+				$(formMessages).html('<p>Oops! An error occured and your message could not be sent.</p>');
 			}
 		});	
 	});	
