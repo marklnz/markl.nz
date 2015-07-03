@@ -1,6 +1,7 @@
 <?php
-
-    // Only process POST reqeusts.
+	require("./sendgrid-php/sendgrid-php.php");
+    
+	// Only process POST reqeusts.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get the form fields and remove whitespace.
         $name = strip_tags(trim($_POST["name"]));
@@ -28,8 +29,7 @@
         $email_content .= "Message:\n$message\n";
 		
         // Send the email.
-        // if (mail($recipient, $subject, $email_content, $email_headers)) {
-		if (smtp_mail($recipient, $subject, $email_content)) {
+        if (smtp_mail($recipient, $subject, $email_content)) {
             // Set a 200 (okay) response code.
             http_response_code(200);
             echo "Thank You! Your message has been sent.";
@@ -48,40 +48,28 @@
 	function smtp_mail($to, $from, $message)
 	{
 		$url = 'https://api.sendgrid.com/';
-		$user = 'azure_bb61ea201ce638f4ea2aff64613c6fea@azure.com';
-		$pass = 'Mysendgridpwd1'; 
+		$apikey = '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';
 
-		$params = array(
-		  'api_user' => $user,
-		  'api_key' => $pass,
-		  'to' => $to,
-		  'subject' => 'New message received on http://markl.nz',
-		  'html' => $message,
-		  'text' => $message,
-		  'from' => $from,
-		);
-
-		$request = $url.'api/mail.send.json';
-
-		// Generate curl request
-		$session = curl_init($request);
-
-		// Tell curl to use HTTP POST
-		curl_setopt ($session, CURLOPT_POST, true);
-
-		// Tell curl that this is the body of the POST
-		curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
-
-		// Tell curl not to return headers, but do return the response
-		curl_setopt($session, CURLOPT_HEADER, false);
-		curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-
-		// obtain response
-		$response = curl_exec($session);
-		curl_close($session);
-
-		// print everything out
-		return $response;
+		// Create a new SendGrid using my API key
+		$sendgrid = new SendGrid($apikey);
+		
+		// Create an email and send it
+		$email = new SendGrid\Email();
+		$email
+			->addTo($to)
+			->setFrom($from)
+			->setSubject('New message from a visitor to http://markl.nz')
+			->setText($message)
+			->setHtml($message)
+		;
+		
+		$res = $sendgrid->send($email);
+		
+		if ($res->getCode() == 200) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 ?>
