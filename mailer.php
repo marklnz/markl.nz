@@ -26,12 +26,17 @@
         $email_content = "Name: $name\n";
         $email_content .= "Email: $email\n\n";
         $email_content .= "Message:\n$message\n";
-
+		$user = 'markl.nz70@gmail.com';
+		$pass = 'Mygooglepwd1';
+		$host = 'ssl://smtp.gmail.com';
+		$port = 465; 
+		
         // Build the email headers.
         $email_headers = "From: $name <$email>";
 
         // Send the email.
-        if (mail($recipient, $subject, $email_content, $email_headers)) {
+        // if (mail($recipient, $subject, $email_content, $email_headers)) {
+		if (smtp_mail($recipient, $subject, $email_content, $user, $pass, $host, $port)) {
             // Set a 200 (okay) response code.
             http_response_code(200);
             echo "Thank You! Your message has been sent.";
@@ -47,4 +52,31 @@
         echo "There was a problem with your submission, please try again.";
     }
 
+	function smtp_mail($to, $from, $message, $user, $pass, $host, $port)
+	{
+		if ($h = fsockopen($host, $port))
+		{
+			$data = array(
+				0,
+				"EHLO $host",
+				'AUTH LOGIN',
+				base64_encode($user),
+				base64_encode($pass),
+				"MAIL FROM: <$from>",
+				"RCPT TO: <$to>",
+				'DATA',
+				$message
+			);
+
+			foreach($data as $c)
+			{
+				$c && fwrite($h, "$c\r\n");
+				while(substr(fgets($h, 256), 3, 1) != ' '){}
+			}
+
+			fwrite($h, "QUIT\r\n");
+			return fclose($h);
+		}
+	}
+	
 ?>
