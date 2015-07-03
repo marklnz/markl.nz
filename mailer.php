@@ -26,9 +26,9 @@
         $email_content = "Name: $name\n";
         $email_content .= "Email: $email\n\n";
         $email_content .= "Message:\n$message\n";
-		$user = 'markl.nz70@gmail.com';
-		$pass = 'Mygooglepwd1';
-		$host = 'ssl://smtp.gmail.com';
+		$user = 'markl.nz@hotmail.com';
+		$pass = 'Mymsnpwd2';
+		$host = 'https://smtp.live.com';
 		$port = 465; 
 		
         // Build the email headers.
