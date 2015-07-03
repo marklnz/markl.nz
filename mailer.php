@@ -29,20 +29,22 @@
         $email_content .= "Message:\n$message\n";
 		
         // Send the email.
-        if (smtp_mail($recipient, $subject, $email_content)) {
+		$result = smtp_mail($recipient, $subject, $email_content)
+        if ($result == true) {
             // Set a 200 (okay) response code.
             http_response_code(200);
-            echo "Thank You! Your message has been sent.";
+            return "Thank You! Your message has been sent.";
         } else {
             // Set a 500 (internal server error) response code.
             http_response_code(500);
-            echo "Oops! Something went wrong and we couldn't send your message.";
+            // return "Oops! Something went wrong and we couldn't send your message.";
+			return $result
         }
 
     } else {
         // Not a POST request, set a 403 (forbidden) response code.
         http_response_code(403);
-        echo "There was a problem with your submission, please try again.";
+        return "There was a problem with your submission, please try again.";
     }
 
 	function smtp_mail($to, $from, $message)
@@ -68,7 +70,7 @@
 		if ($res->getCode() == 200) {
 			return true;
 		} else {
-			return false;
+			return $res->getBody;
 		}
 	}
 	
