@@ -26,9 +26,9 @@
         $email_content = "Name: $name\n";
         $email_content .= "Email: $email\n\n";
         $email_content .= "Message:\n$message\n";
-		$user = 'markl.nz@hotmail.com';
-		$pass = 'Mymsnpwd2';
-		$host = 'https://smtp.live.com';
+		$user = 'MARKLAWR\admin';
+		$pass = 'mrDcp!34';
+		$host = 'ssrs.reachmail.net';
 		$port = 465; 
 		
         // Build the email headers.
