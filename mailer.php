@@ -1,6 +1,6 @@
 <?php
 	
-	// Only process POST reqeusts.
+	// Only process POST requests.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get the form fields and remove whitespace.
         $name = strip_tags(trim($_POST["name"]));
@@ -21,16 +21,13 @@
         // Set the recipient email address.
         $recipient = "markl.nz70@gmail.com";
 
-        // Set the email subject.
-        $subject = "New message from $name on your website";
-
         // Build the email content.
         $email_content = "Name: $name\n";
         $email_content .= "Email: $email\n\n";
         $email_content .= "Message:\n$message\n";
 		
         // Send the email.
-		if (smtp_mail($recipient, $subject, $email_content)) {
+		if (smtp_mail($recipient, $from, $email_content)) {
             // Set a 200 (okay) response code.
             http_response_code(200);
             return "Thank You! Your message has been sent.";
