@@ -148,7 +148,7 @@ $(function() {
 			if (data.responseText !== '') {
 				$(formMessages).html('<p>' + data.responseText + '</p>');
 			} else {
-				$(formMessages).html('<p>Oops! An error occured and your message could not be sent.</p>');
+				$(formMessages).html('<p>Sorry, something went wrong and your message could not be sent. Please click <a href="mailto:markl.nz70@gmail.com?subject=New message from a visitor to your website">here</a> to send me an message using your email client instead.</p>');
 			}
 		});	
 	});	
