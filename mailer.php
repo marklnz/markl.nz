@@ -4,15 +4,17 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get the form fields and remove whitespace.
         $name = strip_tags(trim($_POST["name"]));
-				$name = str_replace(array("\r","\n"),array(" "," "),$name);
+		$name = str_replace(array("\r","\n"),array(" "," "),$name);
         $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
         $message = trim($_POST["message"]);
 
         // Check that data was sent to the mailer.
-        if ( empty($name) OR empty($message) OR !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if ( empty($name) OR empty($message) OR 
+			!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             // Set a 400 (bad request) response code and exit.
             http_response_code(400);
-            echo "Oops! There was a problem with your submission. Please complete the form and try again.";
+            echo "Oops! There was a problem with your submission. 
+			Please complete the form and try again.";
             exit;
         }
 
@@ -36,8 +38,7 @@
         } else {
             // Set a 500 (internal server error) response code.
             http_response_code(500);
-            // return "Oops! Something went wrong and we couldn't send your message.";
-			return $result;
+            return $result;
         }
 
     } else {
@@ -46,7 +47,7 @@
         return "There was a problem with your submission, please try again.";
     }
 
-	function smtp_mail($to, $from, $message)
+	function Smtp_mail($to, $from, $message)
 	{
 		$url = 'https://api.sendgrid.com/';
 		$user = 'azure_bb61ea201ce638f4ea2aff64613c6fea@azure.com';
@@ -67,13 +68,13 @@
 		// Generate curl request
 		$session = curl_init($request);
 		// Tell curl to use HTTP POST
-		curl_setopt ($session, CURLOPT_POST, true);
+		curl_setopt($session, CURLOPT_POST, true);
 		// Tell curl that this is the body of the POST
-		curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+		curl_setopt($session, CURLOPT_POSTFIELDS, $params);
 		// Tell curl not to return headers, but do return the response
 		curl_setopt($session, CURLOPT_HEADER, false);
 		// Tell PHP not to use SSLv3 (instead opting for TLS)
-		curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+		curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSV1_2);
 		curl_setopt($session, CURLOPT_RETURNTRANSFER, false);
 
 		// obtain response
@@ -84,4 +85,3 @@
 		return $response;
 	}
 	
-?>
