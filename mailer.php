@@ -30,8 +30,7 @@
         $email_content .= "Message:\n$message\n";
 		
         // Send the email.
-		$result = smtp_mail($recipient, $subject, $email_content);
-        if ($result == true) {
+		if (smtp_mail($recipient, $subject, $email_content)) {
             // Set a 200 (okay) response code.
             http_response_code(200);
             return "Thank You! Your message has been sent.";
@@ -42,7 +41,7 @@
         }
 
     } else {
-        // Not a POST request, set a 403 (forbidden) response code.
+        // Not a POST request, set a 403 (forbidden) response code. 
         http_response_code(403);
         return "There was a problem with your submission, please try again.";
     }
