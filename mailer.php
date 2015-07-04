@@ -28,7 +28,7 @@
         $email_content .= "Message:\n$message\n";
 		
         // Send the email.
-		$result = smtp_mail($recipient, $subject, $email_content)
+		$result = smtp_mail($recipient, $subject, $email_content);
         if ($result == true) {
             // Set a 200 (okay) response code.
             http_response_code(200);
