@@ -13,13 +13,16 @@
 			!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             // Set a 400 (bad request) response code and exit.
             http_response_code(400);
-            return "Oops! There was a problem with your submission. 
+            echo "Oops! There was a problem with your submission. 
 			Please complete the form and try again.";
             exit;
         }
 
         // Set the recipient email address.
         $recipient = "markl.nz70@gmail.com";
+
+        // Set the email subject.
+        $subject = "New message from $name on your website";
 
         // Build the email content.
         $email_content = "Name: $name\n";
@@ -30,11 +33,11 @@
 		if (smtp_mail($recipient, $email, $email_content)) {
             // Set a 200 (okay) response code.
             http_response_code(200);
-            return "Thank You! Your message has been sent.";
+            echo "Thank You! Your message has been sent.";
         } else {
             // Set a 500 (internal server error) response code.
             http_response_code(500);
-            return $result;
+            echo $result;
         }
     } else {
         // Not a POST request, set a 403 (forbidden) response code. 
