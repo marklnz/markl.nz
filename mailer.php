@@ -36,7 +36,7 @@
             // http_response_code(500);
             // return $result;
         // }
-		return $email_content
+		echo $email_content
 
     } else {
         // Not a POST request, set a 403 (forbidden) response code. 
@@ -81,4 +81,8 @@
 		// print everything out
 		return $response;
 	}
-	
+?>
+<html>
+<head></head>
+<body></body>
+</html>
