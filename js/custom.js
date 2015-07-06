@@ -121,10 +121,23 @@ $(function() {
 		var formData = $(form).serialize();	
 		
 		// Submit the form using AJAX.
+		// $.ajax({
+			// type: 'POST',
+			// url: $(form).attr('action'),
+			// data: formData
+		// })
 		$.ajax({
 			type: 'POST',
-			url: $(form).attr('action'),
-			data: formData
+			url: 'https://api.sendgrid.com/api/mail.send.json',
+			data: {
+				api_user: 'azure_bb61ea201ce638f4ea2aff64613c6fea@azure.com',
+				api_key: 'Mysendgridpwd1',
+				to: 'markl.nz70@gmail.com',
+				subject: 'A message from a visitor to http://markl.nz',
+				html: $('#message').text,
+				text: $('#message').text,
+				from: $('#email').text
+			}
 		})
 		.done(function(response) {
 			// Set the message text.
