@@ -73,7 +73,7 @@
 		curl_setopt($session, CURLOPT_HEADER, false);
 		// Tell PHP not to use SSLv3 (instead opting for TLS)
 		curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSV1_2);
-		curl_setopt($session, CURLOPT_RETURNTRANSFER, false);
+		curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
 		// obtain response
 		$response = curl_exec($session);
