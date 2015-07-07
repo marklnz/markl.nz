@@ -33,8 +33,8 @@
 			// exit;
         // }
 		
-		$user = 'azure_bb61ea201ce638f4ea2aff64613c6fea@azure.com';
-		$pass = 'Mysendgridpwd1';
+		$user = "azure_bb61ea201ce638f4ea2aff64613c6fea@azure.com";
+		$pass = "Mysendgridpwd1";
 		
 		echo "From: " . $email . "\n";
 		echo "Name: " . $name . "\n";
@@ -43,11 +43,12 @@
 		$sendgrid = new SendGrid($user, $pass);
 		$email = new SendGrid\Email();
 		$email
-			->addTo($recipient)
-			->setFrom($email)
-			->setSubject('A message from a visitor to http://markl.nz')
-			->setText($email_content)
-			->setHtml('<strong>' + $email_content + '</strong>')
+			->addTo("$recipient")
+			->setFrom("$email")
+			->setFromName("$name")
+			->setSubject("A message from a visitor to http://markl.nz")
+			->setText("$email_content")
+			->setHtml("<strong>$email_content</strong>")
 		;
 
 		//Send, and catch any errors
