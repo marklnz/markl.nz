@@ -110,8 +110,7 @@ $(function() {
 
     // Get the messages div.
     var formMessages = $('#contact');
-	$(formMessages).addClass('heading text-center');
-
+	
     // Set up an event listener for the contact form.
 	$(form).submit(function(event) {
 		// Stop the browser from submitting the form.
@@ -128,12 +127,12 @@ $(function() {
 		})
 		.success(function(response) {
 			// Set the message text.
-			$(formMessages).html('<p>Thank You! Your message has been sent.</p>');
-			$(form).find("input[type=text], textarea").val("");
+			$(formMessages).html('Thank You! Your message has been sent.');
+			$(form).reset();
 		})
 		.fail(function(data) {
 			// Set the response text.
-			$(formMessages).html('<p>Sorry, something went wrong and your message could not be sent. Please click <a href="mailto:markl.nz70@gmail.com?subject=New message from a visitor to your website">here</a> to send me an message using your email client instead.</p>');
+			$(formMessages).html('Sorry, something went wrong and your message could not be sent. Please click <a href="mailto:markl.nz70@gmail.com?subject=New message from a visitor to your website">here</a> to send me an message using your email client instead.');
 		});	
 	});	
 });
