@@ -71,5 +71,6 @@
 		curl_close($session);
 
 		// print everything out
+		echo $response;
 		return $response;
 	}
