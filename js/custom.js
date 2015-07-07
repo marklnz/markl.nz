@@ -110,8 +110,7 @@ $(function() {
 
     // Get the messages div.
     var formMessages = $('#contact');
-	$(formMessages).addClass('heading text-center');
-
+	
     // Set up an event listener for the contact form.
 	$(form).submit(function(event) {
 		// Stop the browser from submitting the form.
