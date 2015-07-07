@@ -128,7 +128,9 @@ $(function() {
 		.success(function(response) {
 			// Set the message text.
 			$(formMessages).html('Thank You! Your message has been sent.');
-			$(form).reset();
+			$(#name).val();
+			$(#email).val();
+			$(#message).val();
 		})
 		.fail(function(data) {
 			// Set the response text.
