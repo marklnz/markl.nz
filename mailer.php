@@ -43,12 +43,12 @@
 		$sendgrid = new SendGrid($user, $pass);
 		$email = new SendGrid\Email();
 		$email
-			->addTo("$recipient")
-			->setFrom("$email")
-			->setFromName("$name")
+			->addTo($recipient)
+			->setFrom("markl.nz@hotmail.com")
+			->setFromName($name)
 			->setSubject("A message from a visitor to http://markl.nz")
-			->setText("$email_content")
-			->setHtml("<strong>$email_content</strong>")
+			->setText($email_content)
+			->setHtml($email_content)
 		;
 
 		//Send, and catch any errors
