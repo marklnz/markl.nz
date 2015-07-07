@@ -1,10 +1,3 @@
-<html>
-	<head />
-	<body>
-		test output
-	</body>
-</html>
-
 <?php		
 	// Only process POST requests.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -36,7 +29,7 @@
         $email_content .= "Message:\n$message\n";
 		
         // Send the email.
-		if (smtp_mail($recipient, $email, $email_content)) {
+		if (Smtp_mail($recipient, $email, $email_content)) {
             // Set a 200 (okay) response code.
             http_response_code(200);
             return "Thank You! Your message has been sent.";
@@ -88,4 +81,3 @@
 		// print everything out
 		return $response;
 	}
-?>
