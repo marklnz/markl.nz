@@ -1,4 +1,6 @@
 <?php		
+	echo "Message received";
+	
 	// Only process POST requests.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get the form fields and remove whitespace.
@@ -6,6 +8,10 @@
 		$name = str_replace(array("\r","\n"),array(" "," "),$name);
         $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
         $message = trim($_POST["message"]);
+		
+		echo $name;
+		echo $email;
+		echo $message;
 				
         // Check that data was sent to the mailer.
         if ( empty($name) OR empty($message) OR 
