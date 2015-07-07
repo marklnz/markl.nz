@@ -52,7 +52,10 @@
 			$sendgrid->send($email);
 			http_response_code(200);
 		} catch(\SendGrid\Exception $e) {
-			echo $e->getCode();
+			echo $e->getCode() . "<br>";
+			foreach($e->getErrors() as $er) {
+				echo $er;
+			}
 			http_response_code(500);
 		}
 		
