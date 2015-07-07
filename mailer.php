@@ -21,7 +21,7 @@
         $email_content .= "Message:\n$message\n";
 		
 		$user = "azure_bb61ea201ce638f4ea2aff64613c6fea@azure.com";
-		$pass = "Mysendgridpwd1";
+		$pass = "";
 		
 		echo "From: " . $email . "\n";
 		echo "Name: " . $name . "\n";
