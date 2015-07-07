@@ -36,6 +36,10 @@
 		$user = 'azure_bb61ea201ce638f4ea2aff64613c6fea@azure.com';
 		$pass = 'Mysendgridpwd1';
 		
+		echo "From: " . $email . "\n";
+		echo "Name: " . $name . "\n";
+		echo "Message: " . $message . "\n";
+		
 		$sendgrid = new SendGrid($user, $pass);
 		$email = new SendGrid\Email();
 		$email
@@ -52,7 +56,7 @@
 			$sendgrid->send($email);
 			http_response_code(200);
 		} catch(\SendGrid\Exception $e) {
-			echo $e->getCode() . "<br>";
+			echo $e->getCode() . "\n";
 			foreach($e->getErrors() as $er) {
 				echo $er;
 			}
