@@ -1,6 +1,4 @@
 <?php		
-	echo "Message received";
-	
 	// Only process POST requests.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get the form fields and remove whitespace.
@@ -9,11 +7,7 @@
         $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
         $message = trim($_POST["message"]);
 		
-		echo $name;
-		echo $email;
-		echo $message;
-				
-        // Check that data was sent to the mailer.
+	    // Check that data was sent to the mailer.
         if ( empty($name) OR empty($message) OR 
 			!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             // Set a 400 (bad request) response code and exit.
@@ -29,20 +23,28 @@
         // Set the email subject.
         $subject = "New message from $name on your website";
 
+		echo "ready to concatenate the message content";
+		
         // Build the email content.
         $email_content = "Name: $name\n";
         $email_content .= "Email: $email\n\n";
         $email_content .= "Message:\n$message\n";
 		
+		echo $email_content;
+		
         // Send the email.
-		if (Smtp_mail($recipient, $email, $email_content)) {
+		$result = Smtp_mail($recipient, $email, $email_content);
+		
+		echo $result;
+		
+		if ($result) {
             // Set a 200 (okay) response code.
             http_response_code(200);
-            return "Thank You! Your message has been sent.";
+            echo "Thank You! Your message has been sent.";
         } else {
             // Set a 500 (internal server error) response code.
             http_response_code(500);
-            return $result;
+            echo $result;
         }
     } else {
         // Not a POST request, set a 403 (forbidden) response code. 
