@@ -1,4 +1,6 @@
 <?php		
+	require("/sendgrid-php/sendgrid-php.php");
+	
 	// Only process POST requests.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get the form fields and remove whitespace.
@@ -18,18 +20,42 @@
         $email_content .= "Email: $email\n\n";
         $email_content .= "Message:\n$message\n";
 		
-		// Send the email.
-		$result = Smtp_mail($recipient, $email, $email_content);
-		echo $result;
-		if ($result) {
-            // Set a 200 (okay) response code.
-            http_response_code(200);
-			exit;
-        } else {
-            // Set a 500 (internal server error) response code.
-            http_response_code(500);
-			exit;
-        }
+		////Send the email.
+		// $result = Smtp_mail($recipient, $email, $email_content);
+		// echo $result;
+		// if ($result) {
+        //    // Set a 200 (okay) response code.
+            // http_response_code(200);
+			// exit;
+        // } else {
+        //    // Set a 500 (internal server error) response code.
+            // http_response_code(500);
+			// exit;
+        // }
+		
+		$user = 'azure_bb61ea201ce638f4ea2aff64613c6fea@azure.com';
+		$pass = 'Mysendgridpwd1';
+		
+		$sendgrid = new SendGrid($user, $pass);
+		$email = new SendGrid\Email();
+		$email
+			->addTo($recipient)
+			->setFrom($email)
+			->setSubject('A message from a visitor to http://markl.nz')
+			->setText($email_content)
+			->setHtml('<strong>' + $email_content + '</strong>')
+		;
+
+		//Send, and catch any errors
+
+		try {
+			$sendgrid->send($email);
+			http_response_code(200);
+		} catch(\SendGrid\Exception $e) {
+			echo $e->getCode();
+			http_response_code(500);
+		}
+		
     } else {
         // Not a POST request, set a 403 (forbidden) response code. 
         http_response_code(403);
@@ -74,3 +100,10 @@
 		echo $response;
 		return $response;
 	}
+	
+	
+	
+	
+	
+	
+	
