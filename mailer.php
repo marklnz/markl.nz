@@ -31,7 +31,7 @@
 		// Send the email.
 		$result = Smtp_mail($recipient, $email, $email_content);
 		
-		echo $result + " ";
+		echo "result: " + $result + " ";
 		
 		if ($result) {
             // Set a 200 (okay) response code.
@@ -50,8 +50,6 @@
 
 	function Smtp_mail($to, $from, $message)
 	{
-		echo "in Smtp_mail function ";
-		
 		$url = 'https://api.sendgrid.com/';
 		$user = 'azure_bb61ea201ce638f4ea2aff64613c6fea@azure.com';
 		$pass = 'Mysendgridpwd1';
@@ -68,8 +66,6 @@
 
 		$request =  $url.'api/mail.send.json';
 
-		echo "About to build curl request ";
-		
 		// Generate curl request
 		$session = curl_init($request);
 		// Tell curl to use HTTP POST
@@ -82,15 +78,8 @@
 		curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSV1_2);
 		curl_setopt($session, CURLOPT_RETURNTRANSFER, TRUE);
 
-		echo "About to execute CURL ";
-		
 		// obtain response
 		$response = curl_exec($session);
-
-		echo "CURL request completed;";
-		
-		echo $response + " ";
-		
 		curl_close($session);
 
 		// print everything out
