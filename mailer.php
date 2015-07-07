@@ -7,17 +7,7 @@
         $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
         $message = trim($_POST["message"]);
 		
-	    // Check that data was sent to the mailer.
-        if ( empty($name) OR empty($message) OR 
-			!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            // Set a 400 (bad request) response code and exit.
-            http_response_code(400);
-            echo "Oops! There was a problem with your submission. 
-			Please complete the form and try again.";
-            exit;
-        }
-
-        // Set the recipient email address.
+	    // Set the recipient email address.
         $recipient = "markl.nz70@gmail.com";
 
         // Set the email subject.
@@ -30,22 +20,20 @@
 		
 		// Send the email.
 		$result = Smtp_mail($recipient, $email, $email_content);
-		
-		echo "result: " + $result + " ";
-		
+		echo $result;
 		if ($result) {
             // Set a 200 (okay) response code.
             http_response_code(200);
-            echo "Thank You! Your message has been sent.";
+			exit;
         } else {
             // Set a 500 (internal server error) response code.
             http_response_code(500);
-            echo $result;
+			exit;
         }
     } else {
         // Not a POST request, set a 403 (forbidden) response code. 
         http_response_code(403);
-        return "There was a problem with your submission, please try again.";
+        exit;
     }
 
 	function Smtp_mail($to, $from, $message)

@@ -126,17 +126,13 @@ $(function() {
 			url: $(form).attr('action'),
 			data: formData
 		})
-		.done(function(response) {
+		.success(function(response) {
 			// Set the message text.
-			$(formMessages).html('<p>' +response + '</p>');
+			$(formMessages).html('<p>Thank You! Your message has been sent.</p>');
 		})
 		.fail(function(data) {
 			// Set the response text.
-			if (data.responseText !== '') {
-				$(formMessages).html('<p>' + data.responseText + '</p>');
-			} else {
-				$(formMessages).html('<p>Sorry, something went wrong and your message could not be sent. Please click <a href="mailto:markl.nz70@gmail.com?subject=New message from a visitor to your website">here</a> to send me an message using your email client instead.</p>');
-			}
+			$(formMessages).html('<p>Sorry, something went wrong and your message could not be sent. Please click <a href="mailto:markl.nz70@gmail.com?subject=New message from a visitor to your website">here</a> to send me an message using your email client instead.</p>');
 		});	
 	});	
 });
