@@ -6,7 +6,7 @@
 		$name = str_replace(array("\r","\n"),array(" "," "),$name);
         $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
         $message = trim($_POST["message"]);
-
+				
         // Check that data was sent to the mailer.
         if ( empty($name) OR empty($message) OR 
 			!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -65,14 +65,14 @@
 		// Generate curl request
 		$session = curl_init($request);
 		// Tell curl to use HTTP POST
-		curl_setopt($session, CURLOPT_POST, true);
+		curl_setopt($session, CURLOPT_POST, TRUE);
 		// Tell curl that this is the body of the POST
 		curl_setopt($session, CURLOPT_POSTFIELDS, $params);
 		// Tell curl not to return headers, but do return the response
-		curl_setopt($session, CURLOPT_HEADER, false);
+		curl_setopt($session, CURLOPT_HEADER, FALSE);
 		// Tell PHP not to use SSLv3 (instead opting for TLS)
 		curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSV1_2);
-		curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($session, CURLOPT_RETURNTRANSFER, TRUE);
 
 		// obtain response
 		$response = curl_exec($session);
