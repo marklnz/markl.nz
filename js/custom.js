@@ -110,7 +110,8 @@ $(function() {
 
     // Get the messages div.
     var formMessages = $('#contact');
-	
+	$(formMessages).addClass('heading text-center');
+
     // Set up an event listener for the contact form.
 	$(form).submit(function(event) {
 		// Stop the browser from submitting the form.
@@ -128,6 +129,7 @@ $(function() {
 		.success(function(response) {
 			// Set the message text.
 			$(formMessages).html('<p>Thank You! Your message has been sent.</p>');
+			$(form).find("input[type=text], textarea").val("");
 		})
 		.fail(function(data) {
 			// Set the response text.
