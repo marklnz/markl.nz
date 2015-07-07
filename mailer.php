@@ -1,5 +1,11 @@
-<?php
-		
+<html>
+	<head />
+	<body>
+		test output
+	</body>
+</html>
+
+<?php		
 	// Only process POST requests.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get the form fields and remove whitespace.
