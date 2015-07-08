@@ -20,42 +20,35 @@
         $email_content .= "Email: $email\n\n";
         $email_content .= "Message:\n$message\n";
 		
-		echo getenv("SENDGRID_USR");
-		echo getenv("SENDGRID_PWD");
-		
-		http_response_code(500);
-		exit;
-		
-		$user = "";
-		$pass = "";
-		
-		echo "From: " . $email . "\n";
-		echo "Name: " . $name . "\n";
-		echo "Message: " . $message . "\n";
-		
-		$sendgrid = new SendGrid($user, $pass);
-		$email = new SendGrid\Email();
-		$email
-			->addTo($recipient)
-			->setFrom("markl.nz@hotmail.com")
-			->setFromName($name)
-			->setSubject("A message from a visitor to http://markl.nz")
-			->setText($email_content)
-			->setHtml($email_content)
-		;
+	$user = getenv("SENDGRID_USR");
+	$pass = getenv("SENDGRID_PWD");
+	
+	echo "From: " . $email . "\n";
+	echo "Name: " . $name . "\n";
+	echo "Message: " . $message . "\n";
+	
+	$sendgrid = new SendGrid($user, $pass);
+	$email = new SendGrid\Email();
+	$email
+		->addTo($recipient)
+		->setFrom("markl.nz@hotmail.com")
+		->setFromName($name)
+		->setSubject("A message from a visitor to http://markl.nz")
+		->setText($email_content)
+		->setHtml($email_content)
+	;
 
-		//Send, and catch any errors
-
-		try {
-			$sendgrid->send($email);
-			http_response_code(200);
-		} catch(\SendGrid\Exception $e) {
-			echo $e->getCode() . "\n";
-			foreach($e->getErrors() as $er) {
-				echo $er;
-			}
-			http_response_code(500);
+	//Send, and catch any errors
+	try {
+		$sendgrid->send($email);
+		http_response_code(200);
+	} catch(\SendGrid\Exception $e) {
+		echo $e->getCode() . "\n";
+		foreach($e->getErrors() as $er) {
+			echo $er;
 		}
+		http_response_code(500);
+	}
 		
     } else {
         // Not a POST request, set a 403 (forbidden) response code. 
