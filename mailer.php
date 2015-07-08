@@ -20,9 +20,8 @@
         $email_content .= "Email: $email\n\n";
         $email_content .= "Message:\n$message\n";
 		
-		$usr = getenv("SENDGRID_USR");
-		$pwd = getenv("SENDGRID_PWD");
-		echo $usr . "" " . $pwd;
+		echo getenv("SENDGRID_USR");
+		echo getenv("SENDGRID_PWD");
 		
 		http_response_code(500);
 		exit;
