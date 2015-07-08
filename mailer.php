@@ -22,9 +22,10 @@
 		
 		$usr = getenv("SENDGRID_USR");
 		$pwd = getenv("SENDGRID_PWD");
-		echo $usr . ' ' . $pwd;
+		echo $usr . "" " . $pwd;
 		
 		http_response_code(500);
+		exit;
 		
 		$user = "";
 		$pass = "";
