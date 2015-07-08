@@ -23,10 +23,6 @@
 	$user = getenv("SENDGRID_USR");
 	$pass = getenv("SENDGRID_PWD");
 	
-	echo "From: " . $email . "\n";
-	echo "Name: " . $name . "\n";
-	echo "Message: " . $message . "\n";
-	
 	$sendgrid = new SendGrid($user, $pass);
 	$email = new SendGrid\Email();
 	$email
