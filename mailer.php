@@ -20,7 +20,12 @@
         $email_content .= "Email: $email\n\n";
         $email_content .= "Message:\n$message\n";
 		
-		$user = "azure_bb61ea201ce638f4ea2aff64613c6fea@azure.com";
+		echo getenv("SENDGRID_USR");
+		echo getenv("SENDGRID_PWD");
+		http_response_code(500);
+		exit;
+		
+		$user = "";
 		$pass = "";
 		
 		echo "From: " . $email . "\n";
